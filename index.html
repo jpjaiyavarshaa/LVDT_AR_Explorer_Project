@@ -1,26 +1,578 @@
-<!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#07111f"><title>LVDT Explorer | Visible Moving Core</title>
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LVDT Explorer - Cross Section</title>
+
 <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
-<script type="importmap">{"imports":{"three":"https://unpkg.com/three@0.160.0/build/three.module.js","three/addons/":"https://unpkg.com/three@0.160.0/examples/jsm/"}}</script>
+
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+    "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+  }
+}
+</script>
+
 <style>
-:root{color-scheme:dark;--bg:#07111f;--panel:#10243a;--line:#29435b;--cyan:#55d7f2;--text:#edf6ff;--muted:#a9bed0;--orange:#ff9f2e}*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 70% 0%,#16304a,transparent 45%),var(--bg);color:var(--text);font:16px/1.5 system-ui,sans-serif}.wrap{max-width:1100px;margin:auto;padding:22px}h1{margin:8px 0;font-size:clamp(2rem,5vw,3.4rem)}p{color:var(--muted)}.tag{color:var(--cyan);letter-spacing:.14em;font-size:.78rem;font-weight:800}.layout{display:grid;grid-template-columns:1.2fr .8fr;gap:18px;margin-top:22px}.panel{background:linear-gradient(145deg,#10243a,#091827);border:1px solid var(--line);border-radius:18px;padding:18px;min-width:0}#stage{height:440px;position:relative;border-radius:12px;overflow:hidden;background:radial-gradient(ellipse,#1b3850,#071321)}canvas{display:block;width:100%;height:100%}.status{min-height:1.4em;font-size:.85rem;color:#76ebbf}.controls{display:grid;gap:15px;align-content:start}.control{border:1px solid var(--line);border-radius:12px;background:#091827;padding:14px}.label{display:flex;justify-content:space-between;gap:10px;font-weight:700}input[type=range]{width:100%;accent-color:var(--cyan);margin-top:15px}.metrics{display:grid;grid-template-columns:1fr 1fr;gap:10px}.metric{background:#091827;border:1px solid var(--line);border-radius:12px;padding:12px}.metric strong{display:block;font-size:1.25rem}.btn{display:inline-block;border:0;border-radius:10px;padding:12px 16px;background:var(--cyan);color:#06111c;font-weight:800;cursor:pointer;text-decoration:none}.btn.secondary{background:#193249;color:var(--text);border:1px solid var(--line)}.ar-model{display:block;width:100%;height:190px;margin-top:12px;border:1px solid var(--line);border-radius:12px;background:#091827}.small{font-size:.82rem}.legend{display:flex;gap:12px;flex-wrap:wrap;font-size:.82rem;color:var(--muted)}.dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:5px}@media(max-width:760px){.layout{grid-template-columns:1fr}#stage{height:350px}.wrap{padding:14px}}
-model-viewer::part(default-ar-button){background:#55d7f2;color:#06111c;border:0;border-radius:10px;padding:10px 14px;font-weight:800} </style></head><body><main class="wrap"><div class="tag">INTERACTIVE INSTRUMENTATION LAB</div><h1>LVDT Explorer</h1><p>Move the slider to see the <b style="color:var(--orange)">orange iron core</b> translate through the three windings. This website simulation is separate from the AR view.</p>
-<div class="layout"><section class="panel"><div id="stage" aria-label="Interactive 3D LVDT model"></div><p id="status" class="status">Loading 3D model…</p><div class="legend"><span><i class="dot" style="background:#ff9f2e"></i>Movable core</span><span><i class="dot" style="background:#c87832"></i>Copper windings</span><span><i class="dot" style="background:#aeb9c6"></i>Housing</span></div><p class="small">Drag to rotate · Scroll/pinch to zoom · The slider controls this website view.</p><button id="arButton" class="btn">⌁ View in AR</button><p class="small">AR model preview (use the button above to launch AR):</p><model-viewer id="arViewer" class="ar-model" src="lvdt.glb" alt="LVDT with bright orange movable core" ar ar-modes="webxr scene-viewer quick-look" camera-controls environment-image="neutral" shadow-intensity="1"><button slot="ar-button" class="btn">Launch AR on this device</button></model-viewer></section>
-<section class="panel controls"><div class="control"><div class="label"><label for="position">Core displacement</label><output id="positionLabel">0 mm · Null</output></div><input id="position" type="range" min="-10" max="10" step="1" value="0"><div class="legend"><span>−10 mm</span><span style="margin-left:auto">+10 mm</span></div></div><div class="metrics"><div class="metric"><span class="small">Secondary S1</span><strong id="s1">5.0 V</strong></div><div class="metric"><span class="small">Secondary S2</span><strong id="s2">5.0 V</strong></div><div class="metric"><span class="small">Differential output</span><strong id="vout">0.0 V</strong></div><div class="metric"><span class="small">Direction</span><strong id="direction">Null</strong></div></div><p id="explain">At null, both secondary voltages are equal. Move the slider to translate the core.</p><button id="reset" class="btn secondary">Reset to null</button><p class="small">Educational simulated voltages, not calibrated sensor specifications.</p></section></div></main>
+:root {
+  color-scheme: dark;
+  --bg: #07111f;
+  --panel: #10243a;
+  --line: #29435b;
+  --cyan: #55d7f2;
+  --text: #edf6ff;
+  --muted: #a9bed0;
+  --orange: #ff9f2e;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: radial-gradient(ellipse at 70% 0%, #16304a, transparent 45%), var(--bg);
+  color: var(--text);
+  font: 16px/1.5 system-ui, sans-serif;
+}
+
+.wrap {
+  max-width: 1100px;
+  margin: auto;
+  padding: 22px;
+}
+
+h1 {
+  margin: 8px 0;
+  font-size: clamp(2rem, 5vw, 3.4rem);
+}
+
+p { color: var(--muted); }
+
+.tag {
+  color: var(--cyan);
+  letter-spacing: .14em;
+  font-size: .78rem;
+  font-weight: 800;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 1.2fr .8fr;
+  gap: 18px;
+  margin-top: 22px;
+}
+
+.panel {
+  background: linear-gradient(145deg, #10243a, #091827);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 18px;
+  min-width: 0;
+}
+
+#stage {
+  height: 440px;
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  background: radial-gradient(ellipse, #1b3850, #071321);
+}
+
+canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.status {
+  min-height: 1.4em;
+  font-size: .85rem;
+  color: #76ebbf;
+}
+
+.controls {
+  display: grid;
+  gap: 15px;
+  align-content: start;
+}
+
+.control {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: #091827;
+  padding: 14px;
+}
+
+.label {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  font-weight: 700;
+}
+
+input[type=range] {
+  width: 100%;
+  accent-color: var(--cyan);
+  margin-top: 15px;
+}
+
+.metrics {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.metric {
+  background: #091827;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 12px;
+}
+
+.metric strong {
+  display: block;
+  font-size: 1.25rem;
+}
+
+.btn {
+  display: inline-block;
+  border: 0;
+  border-radius: 10px;
+  padding: 12px 16px;
+  background: var(--cyan);
+  color: #06111c;
+  font-weight: 800;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.btn.secondary {
+  background: #193249;
+  color: var(--text);
+  border: 1px solid var(--line);
+}
+
+.ar-model {
+  display: block;
+  width: 100%;
+  height: 180px;
+  margin-top: 12px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: #091827;
+}
+
+.small { font-size: .82rem; }
+
+.legend {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  font-size: .82rem;
+  color: var(--muted);
+}
+
+.dot {
+  display: inline-block;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  margin-right: 5px;
+}
+
+@media (max-width: 760px) {
+  .layout { grid-template-columns: 1fr; }
+  #stage { height: 350px; }
+  .wrap { padding: 14px; }
+}
+</style>
+</head>
+
+<body>
+<main class="wrap">
+
+  <div class="tag">INTERACTIVE INSTRUMENTATION LAB</div>
+  <h1>LVDT Explorer</h1>
+
+  <p>
+    Move the slider to see the orange core move through the windings.
+    Use Cross-Section to expose the inside of the model.
+  </p>
+
+  <div class="layout">
+
+    <section class="panel">
+
+      <div id="stage"></div>
+
+      <p id="status" class="status">Loading 3D model...</p>
+
+      <div class="legend">
+        <span><i class="dot" style="background:#ff9f2e"></i>Movable core</span>
+        <span><i class="dot" style="background:#c87832"></i>Windings</span>
+        <span><i class="dot" style="background:#aeb9c6"></i>Housing</span>
+      </div>
+
+      <p class="small">
+        Drag to rotate. Scroll or pinch to zoom.
+      </p>
+
+      <button id="cutawayButton" class="btn">
+        ✂ Show Cross-Section
+      </button>
+
+      <button id="resetViewButton" class="btn secondary">
+        Reset View
+      </button>
+
+      <p class="small">Separate AR model:</p>
+
+      <model-viewer
+        id="arViewer"
+        class="ar-model"
+        src="lvdt.glb"
+        alt="LVDT model"
+        ar
+        ar-modes="webxr scene-viewer quick-look"
+        camera-controls
+        environment-image="neutral"
+        shadow-intensity="1">
+
+        <button
+          slot="ar-button"
+          class="btn"
+          style="position:absolute;bottom:12px;left:12px">
+          View in AR
+        </button>
+
+      </model-viewer>
+
+    </section>
+
+    <section class="panel controls">
+
+      <div class="control">
+        <div class="label">
+          <label for="position">Core displacement</label>
+          <output id="positionLabel">0 mm · Null</output>
+        </div>
+
+        <input
+          id="position"
+          type="range"
+          min="-10"
+          max="10"
+          step="1"
+          value="0">
+
+        <div class="legend">
+          <span>-10 mm</span>
+          <span style="margin-left:auto">+10 mm</span>
+        </div>
+      </div>
+
+      <div class="metrics">
+        <div class="metric">
+          <span class="small">Secondary S1</span>
+          <strong id="s1">5.0 V</strong>
+        </div>
+
+        <div class="metric">
+          <span class="small">Secondary S2</span>
+          <strong id="s2">5.0 V</strong>
+        </div>
+
+        <div class="metric">
+          <span class="small">Differential output</span>
+          <strong id="vout">0.0 V</strong>
+        </div>
+
+        <div class="metric">
+          <span class="small">Direction</span>
+          <strong id="direction">Null</strong>
+        </div>
+      </div>
+
+      <p id="explain">
+        At null, both secondary voltages are equal.
+      </p>
+
+      <button id="reset" class="btn secondary">
+        Reset to Null
+      </button>
+
+      <p class="small">
+        Voltages are educational simulations, not calibrated sensor specifications.
+      </p>
+
+    </section>
+
+  </div>
+</main>
+
 <script type="module">
 import * as THREE from 'three';
-import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';
-import {OrbitControls} from 'three/addons/controls/OrbitControls.js';
-const stage=document.querySelector('#stage'),status=document.querySelector('#status'),slider=document.querySelector('#position');
-const scene=new THREE.Scene(); scene.background=new THREE.Color('#0b1a29');
-const camera=new THREE.PerspectiveCamera(42,1,0.01,100); camera.position.set(.48,.34,.55);
-const renderer=new THREE.WebGLRenderer({antialias:true,alpha:false}); renderer.setPixelRatio(Math.min(devicePixelRatio,2)); renderer.outputColorSpace=THREE.SRGBColorSpace; renderer.toneMapping=THREE.ACESFilmicToneMapping; stage.appendChild(renderer.domElement);
-scene.add(new THREE.HemisphereLight(0xe4f4ff,0x263449,2.1)); const key=new THREE.DirectionalLight(0xffffff,3);key.position.set(1,2,2);scene.add(key); const fill=new THREE.DirectionalLight(0x58cfff,1.2);fill.position.set(-2,.5,-1);scene.add(fill);
-const controls=new OrbitControls(camera,renderer.domElement);controls.enableDamping=true;controls.target.set(0,0,0);
-let core=null,initialX=0;
-function resize(){const w=stage.clientWidth,h=stage.clientHeight;renderer.setSize(w,h,false);camera.aspect=w/h;camera.updateProjectionMatrix()}new ResizeObserver(resize).observe(stage);resize();
-new GLTFLoader().load('lvdt.glb',gltf=>{const model=gltf.scene;scene.add(model);core=model.getObjectByName('MovableCore');if(!core){status.textContent='Model loaded, but core node could not be found.';return;}core.traverse(o=>{if(o.isMesh){o.material=new THREE.MeshStandardMaterial({color:0xff8c00,metalness:.25,roughness:.3,emissive:0xff5a00,emissiveIntensity:.7,side:THREE.DoubleSide});o.castShadow=true;o.receiveShadow=true;}});model.traverse(o=>{if(o.isMesh){o.castShadow=true;o.receiveShadow=true;}});initialX=core.position.x;const box=new THREE.Box3().setFromObject(model);const size=box.getSize(new THREE.Vector3());const center=box.getCenter(new THREE.Vector3());model.position.sub(center);controls.target.set(0,0,0);camera.position.set(size.x*1.35,size.y*1.55,size.z*2.1);camera.near=.001;camera.far=100;camera.updateProjectionMatrix();controls.update();status.textContent='3D model loaded · orange movable core connected';update();},undefined,e=>{console.error(e);status.textContent='Could not load lvdt.glb. Check that it is in the same folder as index.html.';});
-function update(){const x=Number(slider.value),a=5+.35*x,b=5-.35*x;document.querySelector('#positionLabel').textContent=`${x>0?'+':''}${x} mm · ${x===0?'Null':x>0?'Right of null':'Left of null'}`;document.querySelector('#s1').textContent=a.toFixed(1)+' V';document.querySelector('#s2').textContent=b.toFixed(1)+' V';document.querySelector('#vout').textContent=(a-b>0?'+':'')+(a-b).toFixed(1)+' V';document.querySelector('#direction').textContent=x===0?'Null':x>0?'Positive':'Negative';document.querySelector('#explain').textContent=x===0?'At null, both secondary voltages are equal. The core is centred.':`The core is ${Math.abs(x)} mm ${x>0?'to the right':'to the left'} of null.`;if(core)core.position.x=initialX+(x/10)*.12;}
-slider.addEventListener('input',update);document.querySelector('#reset').addEventListener('click',()=>{slider.value=0;update()});document.querySelector('#arButton').addEventListener('click',()=>{const mv=document.querySelector('#arViewer');mv.scrollIntoView({behavior:'smooth',block:'center'});status.textContent='Tap “Launch AR on this device” inside the model preview. Use Chrome on Android for the best chance of AR support.';});
-function animate(){requestAnimationFrame(animate);controls.update();renderer.render(scene,camera)}animate();
-</script></body></html>
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+
+const stage = document.querySelector('#stage');
+const status = document.querySelector('#status');
+const slider = document.querySelector('#position');
+
+const scene = new THREE.Scene();
+scene.background = new THREE.Color('#0b1a29');
+
+const camera = new THREE.PerspectiveCamera(42, 1, 0.001, 100);
+camera.position.set(0.7, 0.5, 0.8);
+
+const renderer = new THREE.WebGLRenderer({
+  antialias: true,
+  alpha: false
+});
+
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+renderer.outputColorSpace = THREE.SRGBColorSpace;
+renderer.localClippingEnabled = true;
+renderer.setClearColor('#0b1a29');
+
+stage.appendChild(renderer.domElement);
+
+scene.add(new THREE.HemisphereLight(0xe4f4ff, 0x263449, 2.1));
+
+const keyLight = new THREE.DirectionalLight(0xffffff, 3);
+keyLight.position.set(1, 2, 2);
+scene.add(keyLight);
+
+const fillLight = new THREE.DirectionalLight(0x58cfff, 1.2);
+fillLight.position.set(-2, 0.5, -1);
+scene.add(fillLight);
+
+const controls = new OrbitControls(camera, renderer.domElement);
+controls.enableDamping = true;
+controls.target.set(0, 0, 0);
+
+let model = null;
+let core = null;
+let initialCorePosition = new THREE.Vector3();
+let modelCenter = new THREE.Vector3();
+let originalMaterials = new Map();
+let crossSectionEnabled = false;
+
+/*
+  This plane removes one half of the model.
+  You can change the normal to try another cut direction.
+*/
+const cutPlane = new THREE.Plane(
+  new THREE.Vector3(0, 0, -1),
+  0
+);
+
+function resize() {
+  const width = stage.clientWidth;
+  const height = stage.clientHeight;
+
+  if (!width || !height) return;
+
+  renderer.setSize(width, height, false);
+  camera.aspect = width / height;
+  camera.updateProjectionMatrix();
+}
+
+new ResizeObserver(resize).observe(stage);
+resize();
+
+function setCrossSection(enabled) {
+  crossSectionEnabled = enabled;
+
+  if (!model) return;
+
+  model.traverse(object => {
+    if (!object.isMesh) return;
+
+    const materials = Array.isArray(object.material)
+      ? object.material
+      : [object.material];
+
+    materials.forEach(material => {
+      material.clippingPlanes = enabled ? [cutPlane] : [];
+      material.clipShadows = true;
+      material.needsUpdate = true;
+    });
+  });
+
+  document.querySelector('#cutawayButton').textContent =
+    enabled ? '↩ Restore Full Model' : '✂ Show Cross-Section';
+
+  status.textContent = enabled
+    ? 'Cross-section enabled. Rotate the model to inspect the interior.'
+    : 'Full model restored.';
+}
+
+new GLTFLoader().load(
+  './lvdt.glb',
+
+  gltf => {
+    model = gltf.scene;
+    scene.add(model);
+
+    model.traverse(object => {
+      if (!object.isMesh) return;
+
+      object.castShadow = true;
+      object.receiveShadow = true;
+
+      originalMaterials.set(object, object.material);
+
+      const name = (
+        object.name + ' ' + (object.parent?.name || '')
+      ).toLowerCase();
+
+      if (name.includes('movablecore') || name.includes('coremesh')) {
+        const orangeMaterial = new THREE.MeshStandardMaterial({
+          color: 0xff9f2e,
+          metalness: 0.65,
+          roughness: 0.3,
+          emissive: 0x6b2a00,
+          emissiveIntensity: 0.4
+        });
+
+        object.material = Array.isArray(object.material)
+          ? object.material.map(() => orangeMaterial.clone())
+          : orangeMaterial;
+      }
+    });
+
+    core = model.getObjectByName('MovableCore');
+
+    if (!core) {
+      core = model.getObjectByName('MovableCoreMesh');
+    }
+
+    const box = new THREE.Box3().setFromObject(model);
+    const size = box.getSize(new THREE.Vector3());
+    modelCenter = box.getCenter(new THREE.Vector3());
+
+    model.position.sub(modelCenter);
+
+    if (core) {
+      initialCorePosition.copy(core.position);
+    }
+
+    const largestDimension = Math.max(size.x, size.y, size.z);
+
+    camera.position.set(
+      largestDimension * 1.5,
+      largestDimension * 1.4,
+      largestDimension * 2.0
+    );
+
+    camera.near = 0.001;
+    camera.far = 100;
+    camera.updateProjectionMatrix();
+
+    controls.target.set(0, 0, 0);
+    controls.update();
+
+    setCrossSection(false);
+
+    status.textContent = core
+      ? 'Model loaded. Move the slider to shift the core.'
+      : 'Model loaded. A named core node was not found; slider movement may require model-specific adjustment.';
+
+    update();
+  },
+
+  undefined,
+
+  error => {
+    console.error(error);
+    status.textContent =
+      'Could not load lvdt.glb. Make sure it is beside index.html in your repository.';
+  }
+);
+
+function update() {
+  const x = Number(slider.value);
+
+  const s1 = 5 + 0.35 * x;
+  const s2 = 5 - 0.35 * x;
+
+  document.querySelector('#positionLabel').textContent =
+    `${x > 0 ? '+' : ''}${x} mm · ${
+      x === 0 ? 'Null' : x > 0 ? 'Right of null' : 'Left of null'
+    }`;
+
+  document.querySelector('#s1').textContent = s1.toFixed(1) + ' V';
+  document.querySelector('#s2').textContent = s2.toFixed(1) + ' V';
+
+  const output = s1 - s2;
+
+  document.querySelector('#vout').textContent =
+    (output > 0 ? '+' : '') + output.toFixed(1) + ' V';
+
+  document.querySelector('#direction').textContent =
+    x === 0 ? 'Null' : x > 0 ? 'Positive' : 'Negative';
+
+  document.querySelector('#explain').textContent =
+    x === 0
+      ? 'At null, both secondary voltages are equal.'
+      : `The core is ${Math.abs(x)} mm ${
+          x > 0 ? 'to the right' : 'to the left'
+        } of null.`;
+
+  if (core) {
+    /*
+      Exaggerated displacement for easier viewing.
+      Adjust 0.15 to increase or decrease movement.
+    */
+    core.position.x = initialCorePosition.x + (x / 10) * 0.15;
+  }
+}
+
+slider.addEventListener('input', update);
+
+document.querySelector('#reset').addEventListener('click', () => {
+  slider.value = 0;
+  update();
+});
+
+document.querySelector('#cutawayButton').addEventListener('click', () => {
+  if (!model) {
+    status.textContent = 'Wait for the 3D model to load first.';
+    return;
+  }
+
+  setCrossSection(!crossSectionEnabled);
+});
+
+document.querySelector('#resetViewButton').addEventListener('click', () => {
+  if (!model) return;
+
+  const box = new THREE.Box3().setFromObject(model);
+  const size = box.getSize(new THREE.Vector3());
+  const largestDimension = Math.max(size.x, size.y, size.z);
+
+  camera.position.set(
+    largestDimension * 1.5,
+    largestDimension * 1.4,
+    largestDimension * 2.0
+  );
+
+  controls.target.set(0, 0, 0);
+  controls.update();
+});
+
+function animate() {
+  requestAnimationFrame(animate);
+  controls.update();
+  renderer.render(scene, camera);
+}
+
+animate();
+</script>
+</body>
+</html>
+```
