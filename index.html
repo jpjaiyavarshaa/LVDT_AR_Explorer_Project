@@ -4,11 +4,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#07111f">
-<title>LVDT Explorer | Inductive Transducers in 3D + AR</title>
+<title>LVDT Explorer Pro | Interactive 3D + AR</title>
 <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
 <style>
 :root{--bg:#07111f;--panel:#0d1b2c;--line:#20374f;--text:#edf6ff;--muted:#9db2c8;--cyan:#55d7f2;--amber:#ffc56d;--green:#67e8bd}
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(ellipse at 80% 0%,#16304a 0,transparent 40%),var(--bg);color:var(--text);font:16px/1.55 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}a{color:var(--cyan)}.wrap{max-width:1120px;margin:auto;padding:24px}.nav{display:flex;justify-content:space-between;align-items:center;gap:16px;border-bottom:1px solid var(--line);padding:10px 0 20px}.brand{font-weight:800;letter-spacing:.12em;font-size:.9rem}.pill{border:1px solid #31516e;border-radius:999px;padding:6px 11px;color:var(--cyan);font-size:.8rem}.hero{padding:56px 0 34px;display:grid;grid-template-columns:1.15fr .85fr;gap:28px;align-items:center}.eyebrow{color:var(--green);font-size:.78rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase}h1{font-size:clamp(2.5rem,6vw,4.8rem);line-height:1.02;letter-spacing:-.05em;margin:14px 0 20px}.grad{color:var(--cyan)}.lead{color:var(--muted);max-width:640px;font-size:1.1rem}.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:24px}.btn{border:0;border-radius:12px;padding:12px 17px;font-weight:800;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:8px}.primary{background:var(--cyan);color:#06111c}.secondary{background:#13283d;color:var(--text);border:1px solid #31516e}.hero-card,.panel{background:linear-gradient(145deg,#10243a,#0a1727);border:1px solid var(--line);border-radius:22px;padding:22px;box-shadow:0 20px 60px #0002}.mini-diagram{min-height:250px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px}.coil{height:130px;width:100%;max-width:310px;border:2px solid #68829b;border-radius:15px;display:flex;align-items:center;justify-content:space-evenly;position:relative;background:linear-gradient(90deg,#0c2032,#152f48,#0c2032);overflow:hidden}.coil span{height:85px;width:24%;border-radius:8px;background:repeating-linear-gradient(0deg,#55d7f2 0 5px,#2587a6 5px 9px);box-shadow:0 0 20px #55d7f255}.coil span:nth-child(2){background:repeating-linear-gradient(0deg,#ffc56d 0 5px,#ae6d25 5px 9px)}.coil span:nth-child(3){background:repeating-linear-gradient(0deg,#67e8bd 0 5px,#248b72 5px 9px)}.core{position:absolute;width:9px;height:150px;background:#e5edf5;box-shadow:0 0 16px #fff8;left:50%;transform:translateX(-50%);transition:left .25s}.legend{display:flex;gap:12px;flex-wrap:wrap;color:var(--muted);font-size:.8rem}.dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px}.section{padding:38px 0}.section-head{display:flex;justify-content:space-between;align-items:end;gap:18px;margin-bottom:18px}h2{font-size:clamp(1.7rem,4vw,2.5rem);line-height:1.1;margin:7px 0}.muted{color:var(--muted)}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.step{padding:20px;background:var(--panel);border:1px solid var(--line);border-radius:18px}.num{font-size:.78rem;color:var(--green);letter-spacing:.14em;font-weight:900}.step h3{margin:8px 0}.sim{display:grid;grid-template-columns:1fr .9fr;gap:18px}.modelbox{min-height:420px;position:relative;overflow:hidden}.modelbox model-viewer{width:100%;height:360px;background:radial-gradient(ellipse at center,#193651,#091522);border-radius:15px;--poster-color:transparent}.model-note{font-size:.83rem;color:var(--muted)}.controls{display:grid;gap:18px;align-content:start}.control-row{padding:15px;background:#091827;border:1px solid var(--line);border-radius:14px}.control-row label{display:flex;justify-content:space-between;gap:12px;font-weight:700}.control-row input{width:100%;margin-top:15px;accent-color:var(--cyan)}.readout{display:grid;grid-template-columns:1fr 1fr;gap:10px}.metric{background:#0a1929;border:1px solid var(--line);border-radius:14px;padding:14px}.metric strong{font-size:1.3rem;display:block}.formula{font-size:1.4rem;text-align:center;padding:17px;border:1px dashed #3b6685;border-radius:14px;color:var(--cyan);margin:10px 0}.quiz{display:grid;gap:12px}.quiz button{text-align:left;justify-content:flex-start;background:#10243a;color:var(--text);border:1px solid #31516e}.feedback{min-height:28px;color:var(--green);font-weight:700}.footer{border-top:1px solid var(--line);margin-top:35px;padding:24px 0;color:var(--muted);font-size:.85rem}.tag{font-size:.75rem;border-radius:7px;padding:4px 8px;background:#18364b;color:var(--cyan)}@media(max-width:780px){.hero,.sim{grid-template-columns:1fr}.grid{grid-template-columns:1fr}.hero{padding-top:36px}.wrap{padding:17px}.section-head{display:block}.modelbox model-viewer{height:330px}}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(ellipse at 80% 0%,#16304a 0,transparent 40%),var(--bg);color:var(--text);font:16px/1.55 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}a{color:var(--cyan)}.wrap{max-width:1120px;margin:auto;padding:24px}.nav{display:flex;justify-content:space-between;align-items:center;gap:16px;border-bottom:1px solid var(--line);padding:10px 0 20px}.brand{font-weight:800;letter-spacing:.12em;font-size:.9rem}.pill{border:1px solid #31516e;border-radius:999px;padding:6px 11px;color:var(--cyan);font-size:.8rem}.hero{padding:52px 0 34px;display:grid;grid-template-columns:1.15fr .85fr;gap:28px;align-items:center}.eyebrow{color:var(--green);font-size:.78rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase}h1{font-size:clamp(2.5rem,6vw,4.8rem);line-height:1.02;letter-spacing:-.05em;margin:14px 0 20px}.grad{color:var(--cyan)}.lead{color:var(--muted);max-width:640px;font-size:1.1rem}.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:24px}.btn{border:0;border-radius:12px;padding:12px 17px;font-weight:800;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:8px}.primary{background:var(--cyan);color:#06111c}.secondary{background:#13283d;color:var(--text);border:1px solid #31516e}.hero-card,.panel{background:linear-gradient(145deg,#10243a,#0a1727);border:1px solid var(--line);border-radius:22px;padding:22px;box-shadow:0 20px 60px #0002}.section{padding:38px 0}.section-head{display:flex;justify-content:space-between;align-items:end;gap:18px;margin-bottom:18px}h2{font-size:clamp(1.7rem,4vw,2.5rem);line-height:1.1;margin:7px 0}.muted{color:var(--muted)}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.step{padding:20px;background:var(--panel);border:1px solid var(--line);border-radius:18px}.num{font-size:.78rem;color:var(--green);letter-spacing:.14em;font-weight:900}.step h3{margin:8px 0}.sim{display:grid;grid-template-columns:1fr .9fr;gap:18px}.modelbox{min-height:440px;position:relative;overflow:hidden}.modelbox model-viewer{width:100%;height:390px;background:radial-gradient(ellipse at center,#193651,#091522);border-radius:15px;--poster-color:transparent}.model-note{font-size:.83rem;color:var(--muted)}.controls{display:grid;gap:15px;align-content:start}.control-row{padding:15px;background:#091827;border:1px solid var(--line);border-radius:14px}.control-row label{display:flex;justify-content:space-between;gap:12px;font-weight:700}.control-row input{width:100%;margin-top:15px;accent-color:var(--cyan)}.readout{display:grid;grid-template-columns:1fr 1fr;gap:10px}.metric{background:#0a1929;border:1px solid var(--line);border-radius:14px;padding:14px}.metric strong{font-size:1.3rem;display:block}.formula{font-size:1.4rem;text-align:center;padding:17px;border:1px dashed #3b6685;border-radius:14px;color:var(--cyan);margin:10px 0}.footer{border-top:1px solid var(--line);margin-top:35px;padding:24px 0;color:var(--muted);font-size:.85rem}.tag{font-size:.75rem;border-radius:7px;padding:4px 8px;background:#18364b;color:var(--cyan)}.status{font-size:.82rem;color:var(--green);min-height:1.4em}.legend{display:flex;gap:12px;flex-wrap:wrap;color:var(--muted);font-size:.8rem}.dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px}
+@media(max-width:780px){.hero,.sim{grid-template-columns:1fr}.grid{grid-template-columns:1fr}.hero{padding-top:36px}.wrap{padding:17px}.section-head{display:block}.modelbox model-viewer{height:340px}}
 </style>
 </head>
 <body>
@@ -16,36 +17,109 @@
 <header class="nav"><div class="brand">FIELD NOTES <span style="color:var(--cyan)">/ INSTRUMENTATION</span></div><span class="pill">INTERACTIVE LEARNING LAB</span></header>
 <main>
 <section class="hero">
-<div><div class="eyebrow">Inductive transducers · Module 01</div><h1>Meet the <span class="grad">LVDT.</span><br>Feel the movement.</h1><p class="lead">Explore how a Linear Variable Differential Transformer turns tiny mechanical displacement into an electrical signal — through a live simulation, a 3D model, and AR on compatible phones.</p><div class="actions"><a class="btn primary" href="#simulator">Explore the model ↓</a><a class="btn secondary" href="#how-it-works">How it works</a></div></div>
-<div class="hero-card"><div class="mini-diagram"><span class="tag">THE CORE IDEA</span><div class="coil"><span></span><span></span><span></span><i class="core" id="heroCore"></i></div><div class="legend"><span><i class="dot" style="background:#55d7f2"></i>Secondary S1</span><span><i class="dot" style="background:#ffc56d"></i>Primary P</span><span><i class="dot" style="background:#67e8bd"></i>Secondary S2</span></div><p class="muted" style="text-align:center;margin:4px 0">Move the core. The two induced voltages change.</p></div></div>
+<div><div class="eyebrow">Inductive transducers · Interactive module</div><h1>Meet the <span class="grad">LVDT.</span><br>Feel the movement.</h1><p class="lead">Explore a more detailed LVDT assembly. Move the ferromagnetic core and watch the simulated secondary voltages respond in real time.</p><div class="actions"><a class="btn primary" href="#simulator">Explore the model ↓</a><a class="btn secondary" href="#how-it-works">How it works</a></div></div>
+<div class="hero-card"><span class="tag">WHAT TO LOOK FOR</span><h3>Three windings, one moving core</h3><p class="muted">The centre primary winding is excited by AC. The two outer secondary windings produce voltages that depend on the core's position.</p><div class="legend"><span><i class="dot" style="background:#d2732d"></i>Copper windings</span><span><i class="dot" style="background:#c0c8d1"></i>Movable iron core</span><span><i class="dot" style="background:#66788a"></i>Bobbin / housing</span></div></div>
 </section>
-<section class="section" id="how-it-works"><div class="section-head"><div><div class="eyebrow">01 / The principle</div><h2>How an LVDT works</h2></div><p class="muted">No contact needed between the moving core and the coils.</p></div>
+<section class="section" id="how-it-works"><div class="section-head"><div><div class="eyebrow">01 / The principle</div><h2>How an LVDT works</h2></div><p class="muted">The core moves without touching the coils.</p></div>
 <div class="grid">
-<article class="step"><div class="num">STEP 01</div><h3>Excite the primary</h3><p class="muted">An AC supply energizes the primary winding, creating a changing magnetic field inside the transformer.</p></article>
-<article class="step"><div class="num">STEP 02</div><h3>Induce two voltages</h3><p class="muted">The field couples into secondary windings S1 and S2. Their induced voltages depend on the core position.</p></article>
-<article class="step"><div class="num">STEP 03</div><h3>Compare the outputs</h3><p class="muted">The secondaries are connected in series opposition. Their difference gives a signal related to displacement and direction.</p></article>
+<article class="step"><div class="num">STEP 01</div><h3>Excite the primary</h3><p class="muted">An AC supply energizes the primary winding and creates a changing magnetic field.</p></article>
+<article class="step"><div class="num">STEP 02</div><h3>Induce two voltages</h3><p class="muted">The magnetic field couples into secondary windings S1 and S2. Their voltages depend on the core position.</p></article>
+<article class="step"><div class="num">STEP 03</div><h3>Compare the outputs</h3><p class="muted">The secondaries are connected in series opposition, so the differential output indicates displacement and direction.</p></article>
 </div>
 <div class="formula">V<sub>out</sub> = V<sub>S1</sub> − V<sub>S2</sub></div>
-<p class="muted">At the electrical null position, V<sub>S1</sub> ≈ V<sub>S2</sub>, so the differential output is approximately zero. Moving the core to either side makes the magnitude increase; the output phase relative to the primary indicates direction. This is an idealized learning model, not a calibrated sensor.</p>
+<p class="muted">At electrical null, the secondary voltages are approximately equal and the differential output is near zero. This is a simplified educational simulation, not a calibrated sensor model.</p>
 </section>
-<section class="section" id="simulator"><div class="section-head"><div><div class="eyebrow">02 / Try it yourself</div><h2>Move the core</h2></div><span class="tag">LIVE SIMULATION</span></div>
+<section class="section" id="simulator"><div class="section-head"><div><div class="eyebrow">02 / Interactive 3D + AR</div><h2>Move the iron core</h2></div><span class="tag">LIVE SIMULATION</span></div>
 <div class="sim">
-<div class="panel modelbox"><model-viewer   id="lvdtModel"   src="lvdt.glb"   alt="3D model of an LVDT inductive transducer"   camera-controls   auto-rotate   ar   ar-modes="scene-viewer webxr quick-look"   ar-scale="auto"   environment-image="neutral"   shadow-intensity="0.7"   exposure="1.05"   style="width:100%;height:360px;" >   <button     slot="ar-button"     style="position:absolute;bottom:14px;left:14px;padding:14px 20px;background:#55d7f2;color:#06111c;border:0;border-radius:12px;font-weight:bold;cursor:pointer;"   >     View in AR   </button> </model-viewer> alt="Illustrative 3D LVDT model showing primary and secondary coil bands and a movable core" camera-controls auto-rotate shadow-intensity="0.7" exposure="1.05" ar ar-modes="webxr scene-viewer quick-look" ar-scale="auto" environment-image="neutral"><button slot="ar-button" class="btn primary" style="position:absolute;bottom:14px;left:14px">⌁ View in AR</button><div slot="progress-bar" style="display:none"></div></model-viewer><p class="model-note">Rotate, zoom, and inspect the illustrative model. On a supported phone, tap <b>View in AR</b> to place it in your space. AR availability depends on device/browser support.</p></div>
+<div class="panel modelbox">
+<model-viewer id="lvdtModel" src="lvdt.glb" alt="Detailed illustrative LVDT with copper windings and a movable metal core" camera-controls auto-rotate shadow-intensity="0.8" exposure="1.1" ar ar-modes="webxr scene-viewer quick-look" ar-scale="auto" environment-image="neutral" interaction-prompt="auto">
+<button slot="ar-button" class="btn primary" style="position:absolute;bottom:14px;left:14px">⌁ View in AR</button>
+<div slot="progress-bar" style="display:none"></div>
+</model-viewer>
+<p class="model-note">Drag to rotate and pinch/scroll to zoom. On supported phones, tap View in AR. WebXR mode is preferred so the browser can keep live scene changes; Scene Viewer fallback may not preserve slider-driven changes.</p>
+<div id="modelStatus" class="status" aria-live="polite">Loading 3D model…</div>
+</div>
 <div class="panel controls">
 <div class="control-row"><label for="position">Core displacement <output id="positionLabel">0 mm · Null</output></label><input id="position" type="range" min="-10" max="10" step="1" value="0"><div class="legend"><span>−10 mm</span><span style="margin-left:auto">+10 mm</span></div></div>
 <div class="readout"><div class="metric"><span class="muted">Secondary S1</span><strong id="s1">5.0 V</strong></div><div class="metric"><span class="muted">Secondary S2</span><strong id="s2">5.0 V</strong></div><div class="metric"><span class="muted">Differential output</span><strong id="vout">0.0 V</strong></div><div class="metric"><span class="muted">Direction / phase</span><strong id="direction">Null</strong></div></div>
-<p class="muted" id="explain">At null, both secondary voltages are equal. Their difference is zero in this idealized model.</p>
+<p class="muted" id="explain">At null, both secondary voltages are equal. Move the slider to translate the metal core along the LVDT axis.</p>
 <button class="btn secondary" id="reset">Reset to null</button>
+<p class="model-note">Note: the voltages are simulated for learning. Actual LVDT sensitivity depends on the real sensor and signal-conditioning circuit.</p>
 </div></div></section>
-<section class="section"><div class="section-head"><div><div class="eyebrow">03 / Check your understanding</div><h2>Quick knowledge check</h2></div></div><div class="panel quiz"><p><b>What does the LVDT's movable core change?</b></p><button class="btn" data-answer="wrong">The resistance of a fixed resistor</button><button class="btn" data-answer="right">The magnetic coupling between primary and secondary windings</button><button class="btn" data-answer="wrong">The frequency of the AC supply by itself</button><div class="feedback" id="quizFeedback" aria-live="polite"></div></div></section>
-<section class="section"><div class="panel"><div class="eyebrow">04 / Real-world connection</div><h2>Where are LVDTs used?</h2><p class="muted">LVDTs measure linear position in test machines, hydraulic actuators, industrial automation, aircraft control systems, and precision manufacturing. The sensor converts mechanical movement into an electrical signal that a controller can interpret.</p><p><b>Remember:</b> the LVDT measures displacement; signal conditioning electronics typically demodulate and scale the AC differential output for a usable position reading.</p></div></section>
 </main>
-<footer class="footer">LVDT Explorer · Educational demonstration · The displayed voltages are simulated and are not specifications for a real sensor. <br>Built as a lightweight static website for GitHub Pages.</footer>
+<footer class="footer">LVDT Explorer Pro · Educational 3D demonstration · Simulated voltages are illustrative and are not specifications for a real sensor.</footer>
 </div>
 <script>
-const slider=document.getElementById('position'), label=document.getElementById('positionLabel'), s1=document.getElementById('s1'), s2=document.getElementById('s2'), vout=document.getElementById('vout'), direction=document.getElementById('direction'), explain=document.getElementById('explain'), heroCore=document.getElementById('heroCore');
-function update(){const x=Number(slider.value);const a=5+0.35*x,b=5-0.35*x,d=a-b;label.textContent=`${x>0?'+':''}${x} mm · ${x===0?'Null':x>0?'Right of null':'Left of null'}`;s1.textContent=a.toFixed(1)+' V';s2.textContent=b.toFixed(1)+' V';vout.textContent=(d>0?'+':'')+d.toFixed(1)+' V';direction.textContent=x===0?'Null':x>0?'Positive phase':'Opposite phase';explain.textContent=x===0?'At null, both secondary voltages are equal. Their difference is zero in this idealized model.':`The core is ${Math.abs(x)} mm ${x>0?'to the right':'to the left'} of null. The stronger coupling to one secondary makes the differential output ${d>0?'positive':'negative'} in this simplified sign convention.`;heroCore.style.left=(50+x*2.2)+'%';}
-slider.addEventListener('input',update);document.getElementById('reset').addEventListener('click',()=>{slider.value=0;update()});document.querySelectorAll('[data-answer]').forEach(b=>b.addEventListener('click',()=>{document.getElementById('quizFeedback').textContent=b.dataset.answer==='right'?'Correct! Core position changes magnetic coupling and therefore the induced secondary voltages.':'Not quite — look at how the movable core changes the magnetic coupling.';}));update();
+const viewer = document.getElementById('lvdtModel');
+const slider = document.getElementById('position');
+const label = document.getElementById('positionLabel');
+const s1 = document.getElementById('s1');
+const s2 = document.getElementById('s2');
+const vout = document.getElementById('vout');
+const direction = document.getElementById('direction');
+const explain = document.getElementById('explain');
+const status = document.getElementById('modelStatus');
+let coreNode = null;
+let initialCoreTranslation = [0,0,0];
+
+function findNodeByName(node, targetName) {
+  if (!node) return null;
+  if (node.name === targetName) return node;
+  if (node.children) {
+    for (const child of node.children) {
+      const found = findNodeByName(child, targetName);
+      if (found) return found;
+    }
+  }
+  return null;
+}
+function bindMovableCore() {
+  try {
+    coreNode = viewer.model ? findNodeByName(viewer.model, 'MovableCore') : null;
+    if (coreNode) {
+      const t = coreNode.translation;
+      initialCoreTranslation = Array.isArray(t) ? [...t] : [0,0,0];
+      status.textContent = '3D model loaded · movable core connected';
+      update();
+    } else {
+      status.textContent = 'Model loaded, but movable core node was not found. Re-upload the provided lvdt.glb.';
+    }
+  } catch (e) {
+    status.textContent = 'Model loaded, but interactive core control could not initialize.';
+    console.error(e);
+  }
+}
+function update() {
+  const x = Number(slider.value);
+  const a = 5 + 0.35*x;
+  const b = 5 - 0.35*x;
+  const d = a-b;
+  label.textContent = `${x>0?'+':''}${x} mm · ${x===0?'Null':x>0?'Right of null':'Left of null'}`;
+  s1.textContent = a.toFixed(1)+' V';
+  s2.textContent = b.toFixed(1)+' V';
+  vout.textContent = (d>0?'+':'')+d.toFixed(1)+' V';
+  direction.textContent = x===0?'Null':x>0?'Positive phase':'Opposite phase';
+  explain.textContent = x===0
+    ? 'At null, both secondary voltages are equal. The movable core is centred.'
+    : `The core is ${Math.abs(x)} mm ${x>0?'to the right':'to the left'} of null. In this simplified model, S${x>0?'1':'2'} has the stronger coupling and the differential output is ${d>0?'positive':'negative'}.`;
+  if (coreNode) {
+    // The model is built in metres: 10 mm on the slider maps to 0.07 m of travel.
+    const offset = (x / 10) * 0.07;
+    try { coreNode.translation = [initialCoreTranslation[0] + offset, initialCoreTranslation[1], initialCoreTranslation[2]]; }
+    catch (e) { console.warn('Could not translate core node', e); }
+  }
+}
+viewer.addEventListener('load', bindMovableCore);
+viewer.addEventListener('error', () => { status.textContent = 'Could not load lvdt.glb. Check that it is in the same folder as index.html.'; });
+slider.addEventListener('input', update);
+document.getElementById('reset').addEventListener('click', () => { slider.value=0; update(); });
+viewer.addEventListener('ar-status', (event) => {
+  if (event.detail && event.detail.status === 'session-started') {
+    status.textContent = 'AR session started · slider changes may work in WebXR mode only.';
+  }
+});
+if (viewer.loaded) bindMovableCore();
+update();
 </script>
 </body>
 </html>
